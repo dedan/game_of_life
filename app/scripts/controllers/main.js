@@ -4,9 +4,10 @@ angular.module('golApp')
 .controller('MainCtrl', function ($scope, $timeout) {
 
   var blinker = [{x: 0, y: 0}, {x: 0, y: 1}, {x: 0, y: -1}],
+      tattoo = [{x: 0, y: 0}, {x: 0, y: 1}, {x: 0, y: -1}, {x: -1, y: 0}, {x: 1, y: 1}],
       directions = [[0, 1], [1, 1], [1, 0], [1, -1],
                     [0, -1], [-1, -1], [-1, 0], [-1, 1]];
-  $scope.cells = blinker;
+  // $scope.cells = tattoo;
 
   function alive (point) {
     return _.findWhere($scope.cells, point)
@@ -56,6 +57,9 @@ angular.module('golApp')
     timer = $timeout(update, 1000);
   }
   timer = $timeout(update, 1000);
-  // console.log();
+
+  $scope.countNeighbors = countNeighbors;
+  $scope.nextGenAlive = nextGenAlive;
+  $scope.cellsOfInterest = cellsOfInterest;
 
 });
