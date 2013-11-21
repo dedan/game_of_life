@@ -12,24 +12,24 @@ angular.module('golApp')
         .attr('width', width)
         .attr('height', height)
       var x = d3.scale.linear()
-                .domain([-10, 10])
+                .domain([-50, 50])
                 .range([0, width])
       var y = d3.scale.linear()
-                .domain([-10, 10])
+                .domain([-50, 50])
                 .range([height, 0])
 
       scope.$watch('data', function (newVal) {
         if (!newVal) return;
-        var points = chart.selectAll('circle').data(newVal);
+        var points = chart.selectAll('circle').data(newVal, function (e) {return e.x+'-'+e.y});
         points.enter().append('circle')
           .attr('cx', function (d) {return x(d.x);})
           .attr('cy', function (d) {return y(d.y);})
-          .attr('r', 10)
-        points
+          .attr('r', 0)
+        points.transition().duration(20)
           .attr('cx', function (d) {return x(d.x);})
           .attr('cy', function (d) {return y(d.y);})
-          .attr('r', 10)
-        points.exit().remove();
+          .attr('r', 2)
+        points.exit().transition().duration(20).attr('r', 0).remove();
       })
 
 

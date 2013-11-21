@@ -5,9 +5,12 @@ angular.module('golApp')
 
   var blinker = [{x: 0, y: 0}, {x: 0, y: 1}, {x: 0, y: -1}],
       tattoo = [{x: 0, y: 0}, {x: 0, y: 1}, {x: 0, y: -1}, {x: -1, y: 0}, {x: 1, y: 1}],
+      gleiter = [{x: 1, y: 0}, {x: 2, y: 1}, {x: 2, y: 2}, {x: 1, y: 2}, {x: 0, y: 2}],
       directions = [[0, 1], [1, 1], [1, 0], [1, -1],
                     [0, -1], [-1, -1], [-1, 0], [-1, 1]];
-  // $scope.cells = tattoo;
+  $scope.cells = tattoo;
+  // $scope.cells = gleiter;
+  $scope.generations = 0;
 
   function alive (point) {
     return _.findWhere($scope.cells, point)
@@ -54,7 +57,9 @@ angular.module('golApp')
 
   function update () {
     $scope.cells = getNextGen();
-    timer = $timeout(update, 1000);
+    $scope.cellsAlive = $scope.cells.length
+    $scope.generations += 1;
+    timer = $timeout(update, 200);
   }
   timer = $timeout(update, 1000);
 
